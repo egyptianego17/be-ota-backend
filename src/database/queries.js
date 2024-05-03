@@ -17,7 +17,7 @@ export function insertData(db, temperature, humidity, fanState, heaterState, dev
         if (err) {
             console.error('Failed to insert data:', err.message);
         } else {
-            console.log('Data inserted successfully');
+            // console.log('Data inserted successfully');
         }
     });
     stmt.finalize();
@@ -95,7 +95,7 @@ export function insertSerialMessage(db, serialMessage) {
         if (err) {
             console.error('Failed to insert serial message:', err.message);
         } else {
-            console.log('Serial message inserted successfully');
+            // console.log('Serial message inserted successfully');
         }
     });
 
