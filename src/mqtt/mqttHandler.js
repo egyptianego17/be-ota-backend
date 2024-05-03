@@ -1,5 +1,6 @@
 import { insertData } from '../database/queries.js';
 import { insertSerialMessage } from '../database/queries.js';
+
 /**
  * Handles incoming MQTT messages.
  * @param {mqtt.Client} client - The MQTT client.
@@ -21,19 +22,18 @@ export function handleMQTTMessages(client, db, topic) {
         try {
             const messageObject = JSON.parse(message.toString());
             if (messageObject.messageType === 'data') {
-                const { temperature, humidity, fanState, heaterState, deviceID, version: firmwareVersion } = messageObject;
+                const { temperature, humidity, heaterState, deviceID, version: firmwareVersion } = messageObject;
 
                 // Log the data
                 console.log('Data Message:');
                 console.log('Temperature:', temperature);
                 console.log('Humidity:', humidity);
-                console.log('Fan State:', fanState);
                 console.log('Heater State:', heaterState);
                 console.log('Device ID:', deviceID);
                 console.log('Firmware Version:', firmwareVersion);
 
                 // Insert data into the database
-                insertData(db, temperature, humidity, fanState, heaterState, deviceID, firmwareVersion);
+                insertData(db, temperature, humidity, false, heaterState, deviceID, firmwareVersion);
             } else if (messageObject.messageType === 'serial') {
                 // Handle other message types (optional)
                 console.log('Serial Message:', messageObject.serialMessage);
