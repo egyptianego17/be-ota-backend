@@ -31,7 +31,7 @@ const mqttOptions = {
 
 // Initialize the MQTT client
 const mqttClient = initializeMQTTClient(mqttOptions);
-
+    
 // Define the MQTT topic(s) you want to subscribe to
 const mqttTopic = 'esp32'; // Replace with your desired MQTT topic
 

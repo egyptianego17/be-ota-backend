@@ -22,4 +22,6 @@ export function initializeMQTTClient(options) {
 }
 
 export default initializeMQTTClient;
-// 
+
+/* 2 Fans */
+/* 4 Heaters */
