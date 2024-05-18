@@ -5,9 +5,7 @@ const verifyToken = (req, res, next) => {
     if (!token) return res.status(401).json({ error: 'Access denied' });
 
     try {
-        console.log(token);
         const tokenWithoutBearer = token.replace('Bearer ', ''); // Remove the "Bearer" prefix from the token
-        console.log(tokenWithoutBearer);
         const decoded = jwt.verify(tokenWithoutBearer, process.env.JWT_SECRET);
         req.user = decoded;
         next();
