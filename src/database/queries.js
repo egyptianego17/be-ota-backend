@@ -52,18 +52,33 @@ function initializeDatabase() {
                 }
             });
 
-            // Create the LatestStableFirmware table if it doesn't already exist
+            // Create the LatestStableFirmware table
             db.run(`
-                CREATE TABLE IF NOT EXISTS LatestStableFirmware (
-                    id INTEGER PRIMARY KEY AUTOINCREMENT,
-                    firmwareVersion TEXT,
-                    timestamp DATETIME DEFAULT CURRENT_TIMESTAMP      
-                )
+            CREATE TABLE IF NOT EXISTS LatestStableFirmware (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                firmwareVersion TEXT,
+                timestamp DATETIME DEFAULT CURRENT_TIMESTAMP      
+            )
             `, (err) => {
                 if (err) {
                     console.error('Failed to create LatestStableFirmware table:', err.message);
                 } else {
                     console.log('LatestStableFirmware table created successfully.');
+                }
+            });
+
+            // Create the LatestStableFirmware table
+            db.run(`
+            CREATE TABLE IF NOT EXISTS users (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                username TEXT UNIQUE,
+                password TEXT
+            )
+            `, (err) => {
+                if (err) {
+                    console.error('Failed to create Users table:', err.message);
+                } else {
+                    console.log('Users table created successfully.');
                 }
             });
 
@@ -281,6 +296,22 @@ export function fetchLatestStableFirmwareVersion(db, callback) {
         }
     });
 }
+
+export function createUser (db, username, password, callback) {
+    db.run(
+        `INSERT INTO users (username, password) VALUES (?, ?)`,
+        [username, password],
+        function(err) {
+            callback(err);
+        }
+    );
+};
+
+export function findUserByUsername (db ,username, callback) {
+    db.get(`SELECT * FROM users WHERE username = ?`, [username], function(err, row) {
+        callback(err, row);
+    });
+};
 
 // Export the initializeDatabase function as the default export
 export default initializeDatabase;

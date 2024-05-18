@@ -1,6 +1,8 @@
 import express from 'express';
 import multer from 'multer';
 import path from 'path';
+import authRoutes from './auth.js';
+import verifyToken from '../middleware/auth.js';
 import {
     fetchLastRecord,
     checkDeviceStatus,
@@ -16,6 +18,12 @@ import {
 const router = express.Router();
 const storage = multer.memoryStorage();
 const upload = multer({ storage });
+
+// Add authentication routes
+router.use('/auth', authRoutes);
+
+// Middleware to apply verifyToken to all routes below
+router.use(verifyToken);
 
 /**
  * API endpoint to fetch the last record from the SensorData table.
@@ -189,7 +197,6 @@ router.get('/latest-stable-firmware', (req, res) => {
         }
     });
 });
-
 
 /**
  * API endpoint for testing the server.
