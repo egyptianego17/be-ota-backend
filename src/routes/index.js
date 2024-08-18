@@ -19,11 +19,11 @@ const router = express.Router();
 const storage = multer.memoryStorage();
 const upload = multer({ storage });
 
-// Add authentication routes
-router.use('/auth', authRoutes);
+// // Add authentication routes
+// router.use('/auth', authRoutes);
 
-// Middleware to apply verifyToken to all routes below
-router.use(verifyToken);
+// // Middleware to apply verifyToken to all routes below
+// router.use(verifyToken);
 
 /**
  * API endpoint to fetch the last record from the SensorData table.

@@ -9,6 +9,7 @@ const router = express.Router();
 router.post('/register', (req, res) => {
     const db = req.app.locals.db;
     console.log('Registering user');
+    
     const { username, password } = req.body;
 
     // Validate username and password
