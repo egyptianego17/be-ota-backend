@@ -1,12 +1,11 @@
 import firebaseAdmin from 'firebase-admin';
-import serviceAccount from './serviceAccountKey.json' assert { type: 'json' };
+const serviceAccount = JSON.parse(Buffer.from(process.env.FIREBASE_SERVICE_ACCOUNT, 'base64').toString('utf-8'));
 
 // Initialize Firebase Admin SDK with your service account key
 firebaseAdmin.initializeApp({
     credential: firebaseAdmin.credential.cert(serviceAccount),
     storageBucket: 'bee-encubator-ota-v1.appspot.com', // Replace with your Firebase storage bucket ID
 });
-
 /**
  * Uploads a file to Firebase Storage.
  *
